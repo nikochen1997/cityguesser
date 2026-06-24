@@ -3,6 +3,7 @@ import { buildGameRound, scoreForAnswer } from '../lib/buildRound';
 import { GameImageViewport } from '../components/GameImageViewport';
 import { loadState, markImageSeen, saveWip } from '../lib/storage';
 import { hydrateQuestions, serializeQuestions } from '../lib/roundSerialize';
+import { localImageUrl } from '../lib/imageUrl';
 import type { City, GameQuestion } from '../lib/types';
 import type { WipState } from '../lib/wipTypes';
 
@@ -306,7 +307,7 @@ export function GamePage({
       </div>
 
       <div className="relative min-h-0 flex-1 bg-black">
-        <GameImageViewport key={`${gameKey}-${qIndex}-${displayIdx}-${image.url}`} src={image.url} />
+        <GameImageViewport key={`${gameKey}-${qIndex}-${displayIdx}-${image.url}`} src={localImageUrl(image.url)} />
       </div>
 
       <div className="flex shrink-0 flex-col px-4 pt-2">

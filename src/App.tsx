@@ -48,7 +48,7 @@ export default function App() {
     [cities]
   );
 
-  const tr = useMemo(() => totalTourRounds(cities.length), [cities.length]);
+  const tr = useMemo(() => totalTourRounds(cities), [cities]);
 
   const tourRoundForGame = useMemo(() => {
     if (resumeForGame) return resumeForGame.tourRound;
@@ -111,7 +111,7 @@ export default function App() {
       },
       p.cityIds,
       p.streakAtEnd,
-      cities.length
+      tr
     );
     setTourAfterLast(newTour);
     const st2 = loadState();

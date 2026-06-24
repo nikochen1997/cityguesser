@@ -1,6 +1,7 @@
 import { getContinent } from './continent';
 import { getSeenMap, clearSeenIfExhausted } from './storage';
-import type { City, GameQuestion, Difficulty } from './types';
+import type { City, GameQuestion } from './types';
+import { PER_ROUND as NEED } from './tour';
 
 function shuffle<T>(arr: T[], random: () => number): T[] {
   const a = [...arr];
@@ -91,12 +92,6 @@ function prioritySort(
   withP.sort((a, b) => b.p - a.p || a.t - b.t);
   return withP.map((x) => x.c);
 }
-
-const NEED: Record<Difficulty, number> = {
-  easy: 8,
-  medium: 8,
-  hard: 4,
-};
 
 export function buildGameRound(all: City[], random: () => number): GameQuestion[] {
   clearSeenIfExhausted(all);

@@ -1,4 +1,5 @@
 import type { City, GameRecord } from './types';
+import { localImageUrl } from './imageUrl';
 
 /** 从存档汇总「答对过的城市」id（v1.5 起每局写入 correctCityIds） */
 export function collectCorrectCityIdsFromRecords(records: GameRecord[]): string[] {
@@ -59,7 +60,7 @@ export function buildCityImagePool(cityIds: string[], cityById: Map<string, City
     const c = cityById.get(id);
     if (!c?.images?.length) continue;
     for (const im of c.images) {
-      pairs.push({ cityId: id, url: im.url });
+      pairs.push({ cityId: id, url: localImageUrl(im.url) });
     }
   }
   return pairs;

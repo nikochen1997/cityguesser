@@ -1,6 +1,5 @@
 import type { GameRecord, PlayerState } from './types';
 import type { WipState } from './wipTypes';
-import { totalTourRounds } from './tour';
 
 const KEY = 'cityguesser_v1';
 const WIP_KEY = 'cg_wip_v1';
@@ -137,7 +136,7 @@ export function appendRecord(
   r: GameRecord,
   citiesThisRound: string[],
   streakAtEnd: number,
-  cityListLength: number
+  totalRounds: number
 ): number {
   const st = loadState();
   st.totalGames = (st.totalGames || 0) + 1;
@@ -151,7 +150,7 @@ export function appendRecord(
   st.bestStreak = Math.max(st.bestStreak || 0, streakAtEnd, r.streakAtEnd);
   st.currentStreak = streakAtEnd;
   st.citiesAppeared = [...new Set([...st.citiesAppeared, ...citiesThisRound])];
-  const tr = totalTourRounds(cityListLength);
+  const tr = totalRounds;
   st.tourSessionCompleted = Math.min(
     (st.tourSessionCompleted || 0) + 1,
     tr
