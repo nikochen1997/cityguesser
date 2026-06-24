@@ -234,13 +234,13 @@ export function GamePage({
     setIntro(true);
   };
 
-  const closeIntroContinue = () => {
+  const closeIntro = () => {
     if (introOpenAt.current) {
       pauseTotalMs.current += Date.now() - introOpenAt.current;
       introOpenAt.current = null;
     }
     setIntro(false);
-    goNext();
+    // 只关闭介绍弹窗，回到已作答状态；是否进入下一题由用户点「下一题 →」决定
   };
 
   const onNextNoIntro = () => {
@@ -367,11 +367,11 @@ export function GamePage({
             <p className="text-[14px] leading-[1.8] text-[#8AA0B8]">{image.description_zh}</p>
             <button
               type="button"
-              onClick={closeIntroContinue}
+              onClick={closeIntro}
               className="mt-4 w-full rounded-[12px] py-[14px] text-[14px] font-medium text-[#8AA0B8] bg-transparent"
               style={{ border: '0.5px solid rgba(255, 255, 255, 0.15)' }}
             >
-              {qIndex >= TOTAL_Q - 1 ? '查看成绩 →' : '继续答题 →'}
+              关闭
             </button>
           </div>
         </div>
