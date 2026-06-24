@@ -42,6 +42,7 @@ export default function App() {
   const [resumeForGame, setResumeForGame] = useState<WipState | null>(null);
   const [pendingWip, setPendingWip] = useState<WipState | null>(null);
   const [easterUnlockOffer, setEasterUnlockOffer] = useState(false);
+  const [lbReturn, setLbReturn] = useState<AppScreen>('home');
 
   const cityMap = useMemo(
     () => new Map(cities.map((c) => [c.id, c] as const)),
@@ -122,6 +123,8 @@ export default function App() {
   };
 
   const openLeaderboard = () => {
+    // 记住来源页：从结算页打开则返回结算页，否则回首页（修复两局间点排行榜返回丢失"继续下一局"的 bug）
+    setLbReturn(screen === 'result' ? 'result' : 'home');
     setLbKey((k) => k + 1);
     setScreen('leaderboard');
   };
@@ -232,7 +235,7 @@ export default function App() {
   if (screen === 'leaderboard') {
     return (
       <LeaderboardPage
-        onBack={() => setScreen('home')}
+        onBack={() => setScreen(lbReturn)}
         me={nick.trim() || loadState().nickname}
         refreshKey={lbKey}
       />
